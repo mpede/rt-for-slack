@@ -14,9 +14,9 @@ http.createServer(function (req, res) {
     })
     req.on('end',function(){
         res.writeHead(200, {'Content-Type': 'text/plain'});    
-        res.write('\nSOM\n');
+        res.write('\nBOM\n');
         res.write(inspect(incoming).replace(/\[[\d]{1,2}m/g,''));
-        res.end('\nEOM\n');
+        res.end('\nEOM\n(played back to you by NodeJS ;-)');
     })
 
 }).listen(port, ipaddress);
