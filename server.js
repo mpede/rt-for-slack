@@ -24,12 +24,11 @@ console.log('Server running at '+ipaddress+':'+port);
 
 
 function QueryStringToJSON(qs) {            
-    var pairs = qs.slice(1).split('&');    
+    var pairs = qs.split('&');    
     var result = {};
     pairs.forEach(function(pair) {
         pair = pair.split('=');
         result[pair[0]] = decodeURIComponent(pair[1] || '');
     });
-    //return JSON.parse(JSON.stringify(result));
-    return result;
+    return JSON.parse(JSON.stringify(result))
 }
