@@ -14,7 +14,7 @@ http.createServer(function (req, res) {
     })
     req.on('end',function(){
         res.writeHead(200, {'Content-Type': 'text/plain'});    
-        res.write('\nBOM\n'+incoming);
+        res.write('\nBOM\n'+incoming+'\n');
         res.write(inspect(QueryStringToJSON(incoming)).replace(/\[[\d]{1,2}m/g,''));
         res.end('\nEOM\n(played back to you by NodeJS ;-)');
     })
@@ -30,5 +30,6 @@ function QueryStringToJSON(qs) {
         pair = pair.split('=');
         result[pair[0]] = decodeURIComponent(pair[1] || '');
     });
-    return JSON.parse(JSON.stringify(result));
+    //return JSON.parse(JSON.stringify(result));
+    return result;
 }
