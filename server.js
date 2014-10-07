@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
         //res.write('\n');
         request.get('http://api.rottentomatoes.com/api/public/v1.0/movies.json?q='+incoming.text+'&page_limit=1&page=1&apikey=***REMOVED***',function(e,r){
                 res.write(inspect(JSON.parse(r.body)).replace(/\[[\d]{1,2}m/g,''));
-                res.end('\n\n(brought to you by OpenShift, NodeJS and Wogan :-D)');
+                res.end('\n\n(brought to you by OpenShift, NodeJS and Wogan ..oO..)');
         });
     })
 
