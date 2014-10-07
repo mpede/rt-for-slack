@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "express": "~3.4.4",
-    "eyes": "^0.1.8"
+    "eyes": "^0.1.8",
+    "request": "^2.45.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
