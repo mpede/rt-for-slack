@@ -15,10 +15,20 @@ http.createServer(function (req, res) {
     req.on('end',function(){
         res.writeHead(200, {'Content-Type': 'text/plain'});    
         res.write('\nBOM\n');
-        res.write(inspect(incoming).replace(/\[[\d]{1,2}m/g,''));
+        res.write(inspect(QueryStringToJSON(incoming)).replace(/\[[\d]{1,2}m/g,''));
         res.end('\nEOM\n(played back to you by NodeJS ;-)');
     })
 
 }).listen(port, ipaddress);
 console.log('Server running at '+ipaddress+':'+port);
 
+
+function QueryStringToJSON(qs) {            
+    var pairs = qs.slice(1).split('&');    
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    return JSON.parse(JSON.stringify(result));
+}
