@@ -12,7 +12,7 @@ http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     
     res.write('\nSOM\n');
-    res.write(inspect(req));
+    res.write(inspect(req).replace(/\[[\d]{1,2}m/g,''));
     res.end('\nEOM\n');
 
 
