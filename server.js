@@ -17,11 +17,11 @@ http.createServer(function (req, res) {
         incoming=QueryStringToJSON(incoming);
         res.writeHead(200, {'Content-Type': 'text/plain'});    
         //res.write('\nBOM\n'+incoming+'\n');
-        res.write(inspect(incoming).replace(/\[[\d]{1,2}m/g,''));
-        res.write('\n');
+        //res.write(inspect(incoming).replace(/\[[\d]{1,2}m/g,''));
+        //res.write('\n');
         request.get('http://api.rottentomatoes.com/api/public/v1.0/movies.json?q='+incoming.text+'&page_limit=1&page=1&apikey=***REMOVED***',function(e,r){
                 res.write(inspect(JSON.parse(r.body)).replace(/\[[\d]{1,2}m/g,''));
-                res.end('\n\n(played back to you by NodeJS ;-)');
+                res.end('\n\n(played back to you by NodeJS, thx to Wogan M ;-)');
         });
     })
 
