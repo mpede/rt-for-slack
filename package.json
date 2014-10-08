@@ -1,23 +1,15 @@
 {
-  "name": "OpenShift-Sample-App",
-  "version": "1.0.0",
-  "description": "OpenShift Sample Application",
-  "keywords": [
-    "OpenShift",
-    "Node.js",
-    "application",
-    "openshift"
-  ],
+  "name": "Acceleration-Slack-RT-Forwarder",
+  "version": "0.1.4",
+  "description": "",
+  "keywords": [ ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "Christian Schmidt",
+    "email": "cschmidt@acceleration.biz",
+    "url": "http://www.acceleration.biz"
   },
-  "homepage": "http://www.openshift.com/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/openshift/origin-server"
-  },
+  "homepage": "http://www.acceleration.biz",
+  "repository": { },
   "engines": {
     "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
