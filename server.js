@@ -43,8 +43,8 @@ http.createServer(function (req, res) {
                         data.out.channel='#'+data.inc.channel_name;
                         data.out.username=data.movie.title;
                         data.out.text=data.movie.year+'';
-                        data.movie.genres&&(data.out.text+=',    ',data.movie.genres.forEach(function(g){data.out.text+=g+' '}));
-                        data.movie.runtime&&(data.out.text+=',   '+data.movie.runtime+' minutes');
+                        data.movie.genres&&(data.out.text+=',    ',data.movie.genres.forEach(function(g){data.out.text+=g+', '}));
+                        data.movie.runtime&&(data.out.text+='   '+data.movie.runtime+' minutes');
                         data.out.text+='\n';
                         data.out.text+='Critics Score: '
                         data.movie.ratings||(data.movie.ratings={});
