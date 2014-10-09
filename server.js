@@ -63,7 +63,7 @@ http.createServer(function (req, res) {
                         data.movie.studio&&(data.out.text+='        Studio: '+data.movie.studio);
                         data.out.text+='\n';
                         data.out.text+='Cast(abr.): ';
-                        data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+' as '+c.characters[0]+', '}));
+                        data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+(c.characters?' as '+c.characters[0]:'')+', '}));
                         data.out.text=data.out.text.slice(0,-2)+'\n\n';
                         data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
                         data.out.text+='\n\nFor more view the <'+data.movie.links.alternate+'|Full RT page>';
