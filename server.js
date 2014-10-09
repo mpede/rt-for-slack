@@ -40,7 +40,7 @@ http.createServer(function (req, res) {
                     e&&(data.error=!0,data.errmsg='Error retrieving movie details!');
                     if(r){
                         data.movie=JSON.parse(JSON.stringify(r));
-                        data.out.channel_name=data.inc.channel;
+                        data.out.channel_name='#'+data.inc.channel;
                         data.out.username=data.movie.title;
                         data.out.text=data.movie.year+'';
                         data.movie.genre&&(data.out.text+=', ',data.movie.genre.forEach(function(g){data.out.text+=g+' '}));
@@ -75,7 +75,7 @@ http.createServer(function (req, res) {
                 else next();
             },
             function(next){
-                data.error&&(data.out.text=data.errmsg,data.out.channel=data.inc.channel_name,data.out.username='Error');
+                data.error&&(data.out.text=data.errmsg,data.out.channel='#'+data.inc.channel_name,data.out.username='Error');
                 request.post('https://aem.slack.com/services/hooks/incoming-webhook?token=***REMOVED***',{ json: data.out },
                     function(e,r){ 
                         next();
