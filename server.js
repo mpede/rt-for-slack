@@ -64,7 +64,7 @@ http.createServer(function (req, res) {
                         data.out.text+='\n';
                         data.out.text+='Cast(abr.): ';
                         data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+' as '+c.characters[0]+', '}));
-                        data.out.text=data.out.text.slice(0,-1)+'\n\n';
+                        data.out.text=data.out.text.slice(0,-2)+'\n\n';
                         data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
                         data.out.text+='\n\nFor more view the <'+data.movie.links.alternate+'|Full RT page>';
                         data.movie.alternate_ids&&data.movie.alternate_ids.imdb
@@ -76,7 +76,7 @@ http.createServer(function (req, res) {
             },
             function(next){
                 data.error&&(data.out.text=data.errmsg,data.out.channel='#'+data.inc.channel_name,data.out.username='Error');
-                data.out.text+='  (Command received was '+data.inc.command+' '+data.inc.text+')';
+                data.out.text+='\n\n'+data.inc.command+' '+data.inc.text.split('+').join('');
                 request.post('https://aem.slack.com/services/hooks/incoming-webhook?token=***REMOVED***',{ json: data.out },
                     function(e,r){ 
                         next();
