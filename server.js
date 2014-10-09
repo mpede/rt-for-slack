@@ -85,7 +85,7 @@ http.createServer(function (req, res) {
             ], function(e) {
                 //e||(res.end(inspect(data.out).replace(/\[[\d]{1,2}m/g,"")));
                 e&&(res.write('no POST'));
-                res.end('');
+                res.end('');   
             });
     })
 }).listen(port, ipaddress);     // res.end('\n\n(brought to you by RT API, OpenShift, NodeJS and Wogan ..oO..)');   
