@@ -33,7 +33,7 @@ http.createServer(function (req, res) {
                 });
             },
             function(next){
-                data.out={};
+                data.out={}; 
                 if (!data.error)
                 request.get('http://api.rottentomatoes.com/api/public/v1.0/movies/'+data.search.movies[0].id+
                     '.json?apikey=***REMOVED***',function(e,r){
