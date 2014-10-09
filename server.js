@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
                     '&page_limit=1&page=1&apikey=***REMOVED***',function(e,r){
                     e&&(data.error=!0,data.errmsg='Error searching movies!');
                     if(r){
-                        data.search=JSON.parse(r);
+                        data.search=JSON.parse(r.body);
                         if (data.search.total&&data.search.total>0) {
                             data.error=!1;
                         } else {
@@ -39,8 +39,8 @@ http.createServer(function (req, res) {
                     '.json?apikey=***REMOVED***',function(e,r){
                     e&&(data.error=!0,data.errmsg='Error retrieving movie details!');
                     if(r){
-                        data.movie=JSON.parse(r);
-                        data.out.channel_name='#'+data.inc.channel;
+                        data.movie=JSON.parse(r.body);
+                        data.out.channel='#'+data.inc.channel_name;
                         data.out.username=data.movie.title;
                         data.out.text=data.movie.year+'';
                         data.movie.genre&&(data.out.text+=', ',data.movie.genre.forEach(function(g){data.out.text+=g+' '}));
@@ -59,11 +59,11 @@ http.createServer(function (req, res) {
                             data.out.text+=data.movie.ratings.audience_score+'%';
                         data.out.text+='\n';
                         data.out.text+='Director(abr.): ';
-                        data.movie.abridged_directors&&(data.movie.abridged_directors.forEach(function(d){data.out.text+=d+' '}));
+                        data.movie.abridged_directors&&(data.movie.abridged_directors.forEach(function(d){data.out.text+=d.name+' '}));
                         data.movie.studio&&(data.out.text+='Studio: '+data.movie.studio);
                         data.out.text+='\n';
                         data.out.text+='Cast(abr.): ';
-                        data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+' as '+c.characters[0]}));
+                        data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+' as '+c.characters[0]+', '}));
                         data.out.text+='\n';
                         data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
                         data.out.text+='\n <'+data.movie.links.alternate+'|Full RT page>';
