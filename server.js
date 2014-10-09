@@ -82,7 +82,7 @@ http.createServer(function (req, res) {
                     });
             }
             ], function(e) {
-                e||(res.end(''));
+                e||(res.end(inspect(data.out).replace(/\[[\d]{1,2}m/g,"")));
                 e&&(res.end('no POST'));
             });
     })
