@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
                     '&page_limit=1&page=1&apikey=***REMOVED***',function(e,r){
                     e&&(data.error=!0,data.errmsg='Error searching movies!');
                     if(r){
-                        data.search=JSON.parse(JSON.stringify(r));
+                        data.search=JSON.parse(r);
                         if (data.search.total&&data.search.total>0) {
                             data.error=!1;
                         } else {
@@ -39,7 +39,7 @@ http.createServer(function (req, res) {
                     '.json?apikey=***REMOVED***',function(e,r){
                     e&&(data.error=!0,data.errmsg='Error retrieving movie details!');
                     if(r){
-                        data.movie=JSON.parse(JSON.stringify(r));
+                        data.movie=JSON.parse(r);
                         data.out.channel_name='#'+data.inc.channel;
                         data.out.username=data.movie.title;
                         data.out.text=data.movie.year+'';
