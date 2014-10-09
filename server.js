@@ -86,7 +86,7 @@ http.createServer(function (req, res) {
                 e&&(res.end('no POST'));
             });
     })
-}).listen(port, ipaddress);     // res.end('\n\n(brought to you by RT API, OpenShift, NodeJS and Wogan ..oO..)');
+}).listen(port, ipaddress);     // res.end('\n\n(brought to you by RT API, OpenShift, NodeJS and Wogan ..oO..)');   
 console.log('Server running at '+ipaddress+':'+port);
 
 function QueryStringToJSON(qs) {            
