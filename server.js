@@ -44,7 +44,7 @@ http.createServer(function (req, res) {
                         data.out.username=data.movie.title;
                         data.out.text=data.movie.year+'';
                         data.movie.genre&&(data.out.text+=', ',data.movie.genre.forEach(function(g){data.out.text+=g+' '}));
-                        data.movie.runtime&&(data.out.text+=', '+data.movie.runtime+' minutes');
+                        data.movie.runtime&&(data.out.text+=',     '+data.movie.runtime+' minutes');
                         data.out.text+='\n';
                         data.out.text+='Critics Score: '
                         data.movie.ratings||(data.movie.ratings={});
@@ -52,7 +52,7 @@ http.createServer(function (req, res) {
                             data.out.text+='n/a';
                         else
                             data.out.text+=data.movie.ratings.critics_score+'%';
-                        data.out.text+=', Audience Score: '
+                        data.out.text+=',       Audience Score: '
                         if (!data.movie.ratings.audience_score||data.movie.ratings.audience_score==-1)
                             data.out.text+='n/a';
                         else
@@ -60,15 +60,15 @@ http.createServer(function (req, res) {
                         data.out.text+='\n';
                         data.out.text+='Director(abr.): ';
                         data.movie.abridged_directors&&(data.movie.abridged_directors.forEach(function(d){data.out.text+=d.name+' '}));
-                        data.movie.studio&&(data.out.text+='Studio: '+data.movie.studio);
+                        data.movie.studio&&(data.out.text+='        Studio: '+data.movie.studio);
                         data.out.text+='\n';
                         data.out.text+='Cast(abr.): ';
                         data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+' as '+c.characters[0]+', '}));
-                        data.out.text+='\n';
+                        data.out.text+='\n\n';
                         data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
-                        data.out.text+='\n <'+data.movie.links.alternate+'|Full RT page>';
+                        data.out.text+='\n\nFor more view the <'+data.movie.links.alternate+'|Full RT page>';
                         data.movie.alternate_ids&&data.movie.alternate_ids.imdb
-                            &&(data.out.text+=' <http://www.imdb.com/title/tt'+data.movie.alternate_ids.imdb+'|See on IMDB>');
+                            &&(data.out.text+=' or go to <http://www.imdb.com/title/tt'+data.movie.alternate_ids.imdb+'|this title on IMDB>');
                     } 
                     next();                 
                 });
@@ -82,8 +82,9 @@ http.createServer(function (req, res) {
                     });
             }
             ], function(e) {
-                e||(res.end(inspect(data.out).replace(/\[[\d]{1,2}m/g,"")));
-                e&&(res.end('no POST'));
+                //e||(res.end(inspect(data.out).replace(/\[[\d]{1,2}m/g,"")));
+                e&&(res.write('no POST'));
+                res.end('');
             });
     })
 }).listen(port, ipaddress);     // res.end('\n\n(brought to you by RT API, OpenShift, NodeJS and Wogan ..oO..)');   
