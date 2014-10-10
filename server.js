@@ -1,14 +1,17 @@
 #!/bin/env node
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var http = require('http');
-var async= require('async');
-var request = require('request');
-var inspect = require('eyes').inspector({  maxLength:null, stream:null });
+var
+    http = require('http'),
+    async= require('async'),
+    request = require('request'),
+    //inspect = require('eyes').inspector({maxLength:null, stream:null}),
+    credentials = require(process.env.OPENSHIFT_DATA_DIR||'./' + 'credentials'),
+    QueryStringToJSON= require('tools').QueryStringToJSON;
+    ip = process.env.OPENSHIFT_NODEJS_IP||'127.0.0.1',
+    port = process.env.OPENSHIFT_NODEJS_PORT||8080,
+    data={};
 
-http.createServer(function (req, res) {
-    var data={}; 
+http.createServer(function (req, res) { 
     data.incoming="";
     req.on('data', function(d){  data.incoming+=d; })
     req.on('end',function(){    
@@ -16,9 +19,8 @@ http.createServer(function (req, res) {
             function(next){
                 if (data.incoming=="") next(1);
                 data.inc=QueryStringToJSON(data.incoming);
-                res.writeHead(200, {'Content-Type': 'text/plain'});
                 request.get('http://api.rottentomatoes.com/api/public/v1.0/movies.json?q='+data.inc.text+
-                    '&page_limit=1&page=1&apikey=***REMOVED***',function(e,r){
+                    '&page_limit=1&page=1&apikey='+credentials.rt_token,function(e,r){
                     e&&(data.error=!0,data.errmsg='Error searching movies!');
                     if(r){
                         data.search=JSON.parse(r.body);
@@ -36,7 +38,7 @@ http.createServer(function (req, res) {
                 data.out={}; 
                 if (!data.error)
                 request.get('http://api.rottentomatoes.com/api/public/v1.0/movies/'+data.search.movies[0].id+
-                    '.json?apikey=***REMOVED***',function(e,r){
+                    '.json?apikey='++credentials.rt_token,function(e,r){
                     e&&(data.error=!0,data.errmsg='Error retrieving movie details!');
                     if(r){
                         data.movie=JSON.parse(r.body);
@@ -77,25 +79,17 @@ http.createServer(function (req, res) {
             function(next){
                 data.error&&(data.out.text=data.errmsg,data.out.channel='#'+data.inc.channel_name,data.out.username='Error');
                 data.out.text+='\n\n'+data.inc.user_name+': '+data.inc.command+' '+data.inc.text.split('+').join(' ');
-                request.post('https://aem.slack.com/services/hooks/incoming-webhook?token=***REMOVED***',{ json: data.out },
+                request.post('https://aem.slack.com/services/hooks/incoming-webhook?token='+credentials.slack_token,{ json: data.out },
                     function(e,r){ 
                         next();
                     });
             }
             ], function(e) {
-                //e||(res.end(inspect(data.out).replace(/\[[\d]{1,2}m/g,"")));
+                res.writeHead(200, {'Content-Type': 'text/plain'});
                 e&&(res.write('no POST'));
                 res.end('');   
             });
     })
-}).listen(port, ipaddress);     // res.end('\n\n(brought to you by RT API, OpenShift, NodeJS and Wogan ..oO..)');   
-console.log('Server running at '+ipaddress+':'+port);
+}).listen(port, ip);     
+console.log('Server running at '+ip+':'+port);
 
-function QueryStringToJSON(qs) {            
-    var pairs = qs.split('&'), result = {};
-    pairs.forEach(function(pair) {
-        pair = pair.split('=');
-        result[pair[0]] = decodeURIComponent(pair[1] || '');
-    });
-    return JSON.parse(JSON.stringify(result))
-}
