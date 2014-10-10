@@ -7,7 +7,7 @@ by cschmidt@acceleration.biz
 
 drop me a line if you find this useful. 
 
-the server receives outgoing POSTs from our slack instnace via a slash command 
+the server receives outgoing POSTs from our slack instance via slash command 
 and posts the movie details back using incoming webhooks.
 
 very basic, no frills
