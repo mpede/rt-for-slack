@@ -5,7 +5,7 @@ var
     async= require('async'),
     request = require('request'),
     //inspect = require('eyes').inspector({maxLength:null, stream:null}),
-    credentials = require(process.env.OPENSHIFT_DATA_DIR||'./' + 'credentials'),
+    credentials = require((process.env.OPENSHIFT_DATA_DIR||'./')+'credentials'),
     QueryStringToJSON= require('./tools').QueryStringToJSON;
     ip = process.env.OPENSHIFT_NODEJS_IP||'127.0.0.1',
     port = process.env.OPENSHIFT_NODEJS_PORT||8080,
