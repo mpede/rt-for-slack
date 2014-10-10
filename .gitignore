@@ -2,3 +2,6 @@
 credentials.js
 login
 
+
+*.log
+
