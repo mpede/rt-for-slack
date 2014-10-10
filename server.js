@@ -24,12 +24,9 @@ http.createServer(function (req, res) {
                     e&&(data.error=!0,data.errmsg='Error searching movies!');
                     if(r){
                         data.search=JSON.parse(r.body);
-                        if (data.search.total&&data.search.total>0) {
-                            data.error=!1;
-                        } else {
-                            data.error=!0;
-                            data.errmsg='No movies found!';
-                        }
+                        data.search.total && 0 < data.search.total ? 
+                            data.error = !1 : 
+                            (data.error = !0, data.errmsg = "No movies found!");
                     } 
                     next();
                 });
