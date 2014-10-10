@@ -1,5 +1,5 @@
 #!/bin/env node
-
+// Rotten Tomatoes for Slack. Author: cschmidt@acceleration.biz
 var
     http = require('http'),
     async= require('async'),
