@@ -6,7 +6,7 @@ var
     request = require('request'),
     //inspect = require('eyes').inspector({maxLength:null, stream:null}),
     credentials = require(process.env.OPENSHIFT_DATA_DIR||'./' + 'credentials'),
-    QueryStringToJSON= require('tools').QueryStringToJSON;
+    QueryStringToJSON= require('./tools').QueryStringToJSON;
     ip = process.env.OPENSHIFT_NODEJS_IP||'127.0.0.1',
     port = process.env.OPENSHIFT_NODEJS_PORT||8080,
     data={};
@@ -38,7 +38,7 @@ http.createServer(function (req, res) {
                 data.out={}; 
                 if (!data.error)
                 request.get('http://api.rottentomatoes.com/api/public/v1.0/movies/'+data.search.movies[0].id+
-                    '.json?apikey='++credentials.rt_token,function(e,r){
+                    '.json?apikey='+credentials.rt_token,function(e,r){
                     e&&(data.error=!0,data.errmsg='Error retrieving movie details!');
                     if(r){
                         data.movie=JSON.parse(r.body);
