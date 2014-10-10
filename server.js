@@ -76,7 +76,7 @@ http.createServer(function (req, res) {
             },
             function(next){
                 data.error&&(data.out.text=data.errmsg,data.out.channel='#'+data.inc.channel_name,data.out.username='Error');
-                data.out.text+='\n\n'+data.inc.command+' '+data.inc.text.split('+').join(' ');
+                data.out.text+='\n\n'+data.inc.user_name+': '+data.inc.command+' '+data.inc.text.split('+').join(' ');
                 request.post('https://aem.slack.com/services/hooks/incoming-webhook?token=***REMOVED***',{ json: data.out },
                     function(e,r){ 
                         next();
