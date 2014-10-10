@@ -65,8 +65,8 @@ http.createServer(function (req, res) {
                         data.out.text+='Cast(abr.): ';
                         data.movie.abridged_cast&&(data.movie.abridged_cast.forEach(function(c){data.out.text+=c.name+(c.characters?' as '+c.characters[0]:'')+', '}));
                         data.out.text=data.out.text.slice(0,-2)+'\n\n';
-                        data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
-                        data.out.text+='\n\nFor more info go to <'+data.movie.links.alternate+'|the full RT page>';
+                        //data.movie.synopsis&&(data.out.text+=data.movie.synopsis);
+                        data.out.text+='For more info go to <'+data.movie.links.alternate+'|the full RT page>';
                         data.movie.alternate_ids&&data.movie.alternate_ids.imdb
                             &&(data.out.text+=' or go to <http://www.imdb.com/title/tt'+data.movie.alternate_ids.imdb+'|this title on IMDB>');
                     } 
