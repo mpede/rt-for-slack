@@ -84,7 +84,7 @@ http.createServer(function (req, res) {
             ], function(e) {
                 res.writeHead(200, {'Content-Type': 'text/plain'});
                 e&&(res.write('no POST'));
-                res.end(data.incoming);   
+                res.end('');   
             });
     })
 }).listen(port, ip);     
