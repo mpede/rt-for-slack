@@ -3,7 +3,7 @@ rt-for-slack
 
 Rotten Tomtoes integration for Slack
 
-by cschmidt@acceleration.biz 
+by millipede2332 (discord)
 
 drop me a line if you find this useful. 
 
